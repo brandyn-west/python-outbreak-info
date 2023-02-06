@@ -1,4 +1,5 @@
 from outbreak_data import outbreak_data
+import numpy as np
 import pandas as pd
 import re
 import warnings
@@ -111,3 +112,39 @@ def id_lookup(locations, max_results = 10, table = False):
         #necessary identification
         return all_hits.loc[:, ['id', 'label', 'admin_level']]
     return locIds_of_interest
+
+
+def uniqueness(mutations, pango_lin):
+    """Finds the conditional probability of observing a lineage given a set of mutations.
+
+    Arguments:
+    :param mutations: List of mutations.
+    :param pango_lin: Pangolin lineage.
+    :return: float
+    """
+    muts = outbreak_data.mutations_by_lineage(mutations)
+    lineages = outbreak_data.global_prevalence(pango_lin)
+
+    all_lins = np.sum(lineages.loc[:,'total_count'])
+    lin_count = np.sum(lineages.loc[:,'lineage_count'])
+
+    mut_count = np.sum(muts.loc[:,'mutation_count'])
+    
+    P_lin = lin_count / all_lins
+    P_mut = mut_count / all_lins
+    
+    try:
+        P_mut_given_lin = muts.loc[muts['pangolin_lineage'] == pango_lin]\
+                        .proportion.item()
+    except ValueError:
+        P_mut_given_lin = 0
+    
+    print('------------------------')
+    print('P(M|L):',P_mut_given_lin)
+    print('P(L):  ', P_lin)
+    print('P(M):  ',P_mut)
+    print('------------------------')
+
+    uniqueness = (P_mut_given_lin * P_lin) / P_mut
+    print('P(L|M):',uniqueness)
+    return uniqueness
