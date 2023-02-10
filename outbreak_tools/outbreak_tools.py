@@ -114,37 +114,72 @@ def id_lookup(locations, max_results = 10, table = False):
     return locIds_of_interest
 
 
-def uniqueness(mutations, pango_lin):
+def uniqueness(mutations, pango_lin, location=None):
     """Finds the conditional probability of observing a lineage given a set of mutations.
 
     Arguments:
-    :param mutations: List of mutations.
-    :param pango_lin: Pangolin lineage.
+    :param mutations: (Required) List of mutations.
+    :param pango_lin: (Required) List of pango lineages. Supports wildcard
+    :param location: (Optional) Location id
     :return: float
     """
-    muts = outbreak_data.mutations_by_lineage(mutations)
-    lineages = outbreak_data.global_prevalence(pango_lin)
 
-    all_lins = np.sum(lineages.loc[:,'total_count'])
-    lin_count = np.sum(lineages.loc[:,'lineage_count'])
+    all_seq_count = outbreak_data.sequence_counts(location=location,
+                                                  cumulative=True
+                                                  ).Values.item()
+    
+    # parse pango_lin
+    if isinstance(pango_lin, str):
+        if pango_lin[-1] == '*':
+            sub_lineages = outbreak_data.wildcard_lineage(pango_lin)
+            pango_lin = [i for i in sub_lineages.iloc[0,:] if i != 'name']
+        else:
+            pango_lin = [pango_lin]
+    elif isinstance(pango_lin, list):
+        lineages = []
+        for val in pango_lin:
+            if val[-1] == '*':
+                sub_lineages = outbreak_data.wildcard_lineage(val)
+                lineages += [i for i in sub_lineages.iloc[0,:] if i != 'name']
+            else:
+                lineages.append(val)
+        pango_lin = lineages
 
-    mut_count = np.sum(muts.loc[:,'mutation_count'])
-    
-    P_lin = lin_count / all_lins
-    P_mut = mut_count / all_lins
-    
-    try:
-        P_mut_given_lin = muts.loc[muts['pangolin_lineage'] == pango_lin]\
-                        .proportion.item()
-    except ValueError:
-        P_mut_given_lin = 0
-    
-    print('------------------------')
-    print('P(M|L):',P_mut_given_lin)
-    print('P(L):  ', P_lin)
-    print('P(M):  ',P_mut)
-    print('------------------------')
+    print(pango_lin)
 
+    # Get lineage counts by location
+    if location is not None:
+        lineages_df = outbreak_data.daily_prev_by_location(pango_lin,
+                                                           location)
+    else:
+        query = ','.join(pango_lin)
+        lineages_df = outbreak_data.global_prevalence(query)
+    
+    lineage_count = np.sum(lineages_df.loc[:,'lineage_count'])
+    P_lin = lineage_count / all_seq_count
+
+    # Get mutation counts by location
+    muts_df = outbreak_data.mutations_by_lineage(mutations, location=location)
+    mut_count = np.sum(muts_df.loc[:,'mutation_count'])
+    P_mut = mut_count / all_seq_count
+    
+    # Get mutation counts within specified lineages
+    muts_in_lins = 0
+    for lin in pango_lin:
+        try:
+            muts_in_lins += muts_df.loc[muts_df['pangolin_lineage'] == lin]\
+                            .mutation_count.item()
+        except ValueError:
+            continue
+    
+    P_mut_given_lin = muts_in_lins / lineage_count
     uniqueness = (P_mut_given_lin * P_lin) / P_mut
+    
+    print('------------------------')
+    print('P(M|L): ', P_mut_given_lin)
+    print('P(L)  : ', P_lin)
+    print('P(M)  : ', P_mut)
+    print('------------------------')
     print('P(L|M):',uniqueness)
+
     return uniqueness
