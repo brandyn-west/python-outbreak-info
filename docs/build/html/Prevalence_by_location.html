@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="Seq_counts.html">sequence_counts(location, cumulative, sub_admin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mut_By_Lin.html">mutations_by_lineage(mutation, location, pango_lin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auth_setup.html">authenticate_new_user()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="daily_prev_by_location.html">daily_prev_by_location(pango_lin, location=’USA’, mutations=None, cumulative=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
@@ -181,34 +180,28 @@
 <dd><p>Loads prevalence data from a location</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param location</dt>
+<dt class="field-odd">location</dt>
 <dd class="field-odd"><p>A string</p>
 </dd>
-<dt class="field-even">param startswith</dt>
+<dt class="field-even">startswith</dt>
 <dd class="field-even"><p>A string; loads data for all lineages beginning with first letter(s) of name</p>
 </dd>
-<dt class="field-odd">param other_threshold (Default</dt>
-<dd class="field-odd"><ol class="arabic simple" start="0">
-<li><p>Minimum prevalence threshold below which lineages must be accumulated under “Other”.</p></li>
-</ol>
+<dt class="field-odd">other_threshold</dt>
+<dd class="field-odd"><p>(Default: 0) Minimum prevalence threshold below which lineages must be accumulated under “Other”.</p>
 </dd>
-<dt class="field-even">param nday_threshold (Default</dt>
-<dd class="field-even"><ol class="arabic simple" start="0">
-<li><p>Minimum number of days in which the prevalence of a lineage must be below other_threshold to be accumulated under “Other”.</p></li>
-</ol>
+<dt class="field-even">nday_threshold</dt>
+<dd class="field-even"><p>(Default: 0) Minimum number of days in which the prevalence of a lineage must be below other_threshold to be accumulated under “Other”.</p>
 </dd>
-<dt class="field-odd">param ndays (Default</dt>
-<dd class="field-odd"><ol class="arabic simple" start="2048">
-<li><p>The number of days before the current date to be used as a window to accumulate linegaes under “Other”.</p></li>
-</ol>
+<dt class="field-odd">ndays</dt>
+<dd class="field-odd"><p>(Default: 2048) The number of days before the current date to be used as a window to accumulate linegaes under “Other”.</p>
 </dd>
-<dt class="field-even">param other_exclude</dt>
+<dt class="field-even">other_exclude</dt>
 <dd class="field-even"><p>Comma separated lineages that are NOT to be included under “Other” even if the conditions specified by the three thresholds above are met.</p>
 </dd>
-<dt class="field-odd">param cumulative</dt>
+<dt class="field-odd">cumulative</dt>
 <dd class="field-odd"><p>(Default: false) If true return the cumulative prevalence.</p>
 </dd>
-<dt class="field-even">return</dt>
+<dt class="field-even">Return</dt>
 <dd class="field-even"><p>A pandas dataframe</p>
 </dd>
 </dl>

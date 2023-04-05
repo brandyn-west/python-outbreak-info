@@ -41,7 +41,7 @@ Contents
    Seq_counts
    Mut_By_Lin
    auth_setup
-   daily_prev_by_location
+   daily_prev
    collection_date
    mutation_details
    daily_lag
