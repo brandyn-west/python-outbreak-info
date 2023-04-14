@@ -45,3 +45,9 @@ Contents
    collection_date
    mutation_details
    daily_lag
+   sub_admin
+   submission_date
+   wildcard_mutation
+   wildcard_location
+   wildcard_lineage
+   location_details

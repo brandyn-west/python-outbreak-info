@@ -102,6 +102,11 @@
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sub_admin.html">lineage_by_sub_admin(pango_lin, mutations, location, ndays, detected)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wildcard_mutation.html">wildcard_mutation(name)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wildcard_location.html">wildcard_location(name)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wildcard_lineage.html">wildcard_lineage(name)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location_details.html">location_details(location)</a></li>
 </ul>
 
             
@@ -177,7 +182,7 @@
 <h1>prevalence_by_location(location, ndays, nday_threshold, other_threshold, other_exclude, cumulative, startswith, server, auth):<a class="headerlink" href="#prevalence-by-location-location-ndays-nday-threshold-other-threshold-other-exclude-cumulative-startswith-server-auth" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Endpoint: <a class="reference external" href="https://api.outbreak.info/genomics/prevalence-by-location-all-lineages">https://api.outbreak.info/genomics/prevalence-by-location-all-lineages</a></p>
+<p><a class="reference external" href="https://api.outbreak.info/genomics/prevalence-by-location-all-lineages">https://api.outbreak.info/genomics/prevalence-by-location-all-lineages</a></p>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="outbreak_data.prevalence_by_location">
@@ -217,7 +222,7 @@
 </dd></dl>
 
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text"><strong>Example:</strong> Give prevalence of all lineages in the U.S., classify lineages that are below 0.03 prevalence for at least 5 days over the last 60 days as “Other”, and exclude p.1 from “Other” even if conditions for “Other” are satisfied.  Endpoint: <a class="reference external" href="https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA&amp;other_threshold=0.03&amp;nday_threshold=5&amp;ndays=60">https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA&amp;other_threshold=0.03&amp;nday_threshold=5&amp;ndays=60</a></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text"><strong>Example:</strong> Give prevalence of all lineages in the U.S., classify lineages that are below 0.03 prevalence for at least 5 days over the last 60 days as “Other”, and exclude p.1 from “Other” even if conditions for “Other” are satisfied.   <a class="reference external" href="https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA&amp;other_threshold=0.03&amp;nday_threshold=5&amp;ndays=60">https://api.outbreak.info/genomics/prevalence-by-location-all-lineages?location_id=USA&amp;other_threshold=0.03&amp;nday_threshold=5&amp;ndays=60</a></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">prevalence_by_location</span><span class="p">(</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="s1">&#39;p.1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
