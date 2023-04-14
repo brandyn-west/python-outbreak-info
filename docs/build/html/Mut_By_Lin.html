@@ -93,11 +93,12 @@
 <li class="toctree-l1"><a class="reference internal" href="Outbreak_data%20Functions.html">get_outbreak_data()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Cases_by_location.html">cases_by_location(location)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lineage_mutations.html">lineage_mutations(pango_lin, mutation, freq)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, startswith)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, ndays, nday_threshold, other_threshold, other_exclude, cumulative, startswith, server, auth):</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Global_Prev.html">global_prevalence(pango_lin, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Seq_counts.html">sequence_counts(location, cumulative, sub_admin)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">mutations_by_lineage(mutation, location, pango_lin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auth_setup.html">authenticate_new_user()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_prev.html">daily_prev(pango_lin, location, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
@@ -174,10 +175,14 @@
             
   <div class="section" id="mutations-by-lineage-mutation-location-pango-lin">
 <h1>mutations_by_lineage(mutation, location, pango_lin)<a class="headerlink" href="#mutations-by-lineage-mutation-location-pango-lin" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Endpoint: <a class="reference external" href="https://api.outbreak.info/genomics/mutations-by-lineage">https://api.outbreak.info/genomics/mutations-by-lineage</a></p>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="outbreak_data.mutations_by_lineage">
 <span class="sig-prename descclassname"><span class="pre">outbreak_data.</span></span><span class="sig-name descname"><span class="pre">mutations_by_lineage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pango_lin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test.outbreak.info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#outbreak_data.mutations_by_lineage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the prevalence of a mutation or series of mutations across specified lineages by location</p>
+<dd><p>Returns the prevalence of a mutation or series of mutations across specified lineages by location</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">mutations</dt>
@@ -187,12 +192,12 @@
 <dd class="field-even"><p>(Optional). If not specified, return most recent date globally.</p>
 </dd>
 <dt class="field-odd">pangolin_lineage</dt>
-<dd class="field-odd"><p>(Optional). If not specfied, Return all Pango lineages containing that mutation.</p>
+<dd class="field-odd"><p>(Optional). If not specfied, returns all Pango lineages containing that mutation.</p>
 </dd>
 <dt class="field-even">frequency</dt>
 <dd class="field-even"><p>(Optional) Minimimum frequency threshold for the prevalence of a mutation in a lineage.</p>
 </dd>
-<dt class="field-odd">Return</dt>
+<dt class="field-odd">return</dt>
 <dd class="field-odd"><p>A pandas dataframe.</p>
 </dd>
 </dl>
@@ -200,6 +205,12 @@
 </dl>
 </dd></dl>
 
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><strong>Example:</strong> Get prevalence of S:E484K across all lineages in the U.S. Endpoint: https://api.outbreak.info/genomics/mutations-by-lineage?mutations=S:E484K&amp;location_id=USA</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">mutations_by_lineage</span><span class="p">(</span><span class="s1">&#39;s:e484k&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

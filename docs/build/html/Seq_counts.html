@@ -93,11 +93,12 @@
 <li class="toctree-l1"><a class="reference internal" href="Outbreak_data%20Functions.html">get_outbreak_data()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Cases_by_location.html">cases_by_location(location)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lineage_mutations.html">lineage_mutations(pango_lin, mutation, freq)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, startswith)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, ndays, nday_threshold, other_threshold, other_exclude, cumulative, startswith, server, auth):</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Global_Prev.html">global_prevalence(pango_lin, mutations, cumulative)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">sequence_counts(location, cumulative, sub_admin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mut_By_Lin.html">mutations_by_lineage(mutation, location, pango_lin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auth_setup.html">authenticate_new_user()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_prev.html">daily_prev(pango_lin, location, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
@@ -174,22 +175,26 @@
             
   <div class="section" id="sequence-counts-location-cumulative-sub-admin">
 <h1>sequence_counts(location, cumulative, sub_admin)<a class="headerlink" href="#sequence-counts-location-cumulative-sub-admin" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Endpoint: <a class="reference external" href="https://api.outbreak.info/genomics/sequence-count">https://api.outbreak.info/genomics/sequence-count</a></p>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="outbreak_data.sequence_counts">
 <span class="sig-prename descclassname"><span class="pre">outbreak_data.</span></span><span class="sig-name descname"><span class="pre">sequence_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_admin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test.outbreak.info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#outbreak_data.sequence_counts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return number of sequences per day by location</p>
+<dd><p>Returns number of sequences per day by location</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">location_id</dt>
 <dd class="field-odd"><p>(Optional). If not specified, the global total counts are returned.</p>
 </dd>
 <dt class="field-even">cumulative</dt>
-<dd class="field-even"><p>(Optional). If true Return the cumulative number of sequences till date.</p>
+<dd class="field-even"><p>(Optional). If true returns the cumulative number of sequences till date.</p>
 </dd>
 <dt class="field-odd">subadmin</dt>
-<dd class="field-odd"><p>(Optional). If true and cumulative=true, Return the cumulative number of sequences for the immedaite lower admin level.</p>
+<dd class="field-odd"><p>(Optional). If true and cumulative=true, returns the cumulative number of sequences for the immedaite lower admin level.</p>
 </dd>
-<dt class="field-even">Return</dt>
+<dt class="field-even">return</dt>
 <dd class="field-even"><p>A pandas dataframe.</p>
 </dd>
 </dl>
@@ -197,6 +202,24 @@
 </dl>
 </dd></dl>
 
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><strong>Examples:</strong> Number of sequences per day globally. Endpoint: <a class="reference external" href="https://api.outbreak.info/genomics/sequence-count">https://api.outbreak.info/genomics/sequence-count</a></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">df</span> <span class="o">=</span> <span class="n">sequnce_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Cumulative number of sequences for every US state. Endpoint:  <a class="reference external" href="https://api.outbreak.info/genomics/sequence-count?location_id=USA&amp;cumulative=true&amp;subadmin=true">https://api.outbreak.info/genomics/sequence-count?location_id=USA&amp;cumulative=true&amp;subadmin=true</a></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">df</span> <span class="o">=</span> <span class="n">sequence_counts</span><span class="p">(</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Daily number of sequences for California. Endpoint:  <a class="reference external" href="https://api.outbreak.info/genomics/sequence-count?location_id=USA_US-CA">https://api.outbreak.info/genomics/sequence-count?location_id=USA_US-CA</a></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">df</span> <span class="o">=</span> <span class="n">sequence_counts</span><span class="p">(</span><span class="s1">&#39;USA_US-CA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

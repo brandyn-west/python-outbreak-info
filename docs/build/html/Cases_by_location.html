@@ -93,11 +93,12 @@
 <li class="toctree-l1"><a class="reference internal" href="Outbreak_data%20Functions.html">get_outbreak_data()</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">cases_by_location(location)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lineage_mutations.html">lineage_mutations(pango_lin, mutation, freq)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, startswith)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, ndays, nday_threshold, other_threshold, other_exclude, cumulative, startswith, server, auth):</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Global_Prev.html">global_prevalence(pango_lin, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Seq_counts.html">sequence_counts(location, cumulative, sub_admin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mut_By_Lin.html">mutations_by_lineage(mutation, location, pango_lin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auth_setup.html">authenticate_new_user()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_prev.html">daily_prev(pango_lin, location, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
@@ -185,9 +186,9 @@ if location is a list of string locations. Since this API endpoint supports pagi
 <dd class="field-odd"><p>A string or list of strings, separate multiple locations by “,”</p>
 </dd>
 <dt class="field-even">pull_smoothed</dt>
-<dd class="field-even"><p>For every value &gt;= 0, Return 1000 obs. (paging)</p>
+<dd class="field-even"><p>For every value &gt;= 0, returns 1000 obs. (paging)</p>
 </dd>
-<dt class="field-odd">Return</dt>
+<dt class="field-odd">return</dt>
 <dd class="field-odd"><p>A pandas dataframe</p>
 </dd>
 </dl>
@@ -196,7 +197,7 @@ if location is a list of string locations. Since this API endpoint supports pagi
 </dd></dl>
 
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Example usage:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text"><strong>Example usage:</strong></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">foo</span> <span class="o">=</span> <span class="n">cases_by_location</span><span class="p">(</span><span class="s1">&#39;USA_US-CO&#39;</span><span class="p">)</span>
 </pre></div>
 </div>

@@ -93,11 +93,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">get_outbreak_data()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Cases_by_location.html">cases_by_location(location)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lineage_mutations.html">lineage_mutations(pango_lin, mutation, freq)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, startswith)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Prevalence_by_location.html">prevalence_by_location(location, ndays, nday_threshold, other_threshold, other_exclude, cumulative, startswith, server, auth):</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Global_Prev.html">global_prevalence(pango_lin, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Seq_counts.html">sequence_counts(location, cumulative, sub_admin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mut_By_Lin.html">mutations_by_lineage(mutation, location, pango_lin)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auth_setup.html">authenticate_new_user()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_prev.html">daily_prev(pango_lin, location, mutations, cumulative)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collection_date.html">collection_date(pango_lin, mutations=None, location=None)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutation_details.html">mutation_details(mutations)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="daily_lag.html">daily_lag(location=None)</a></li>
@@ -197,12 +198,12 @@
 <dd class="field-even"><p>Auth key (defaults to acceptable state)</p>
 </dd>
 <dt class="field-odd">collect_all</dt>
-<dd class="field-odd"><p>if True, Return all data.</p>
+<dd class="field-odd"><p>if True, returns all data.</p>
 </dd>
 <dt class="field-even">curr_page</dt>
 <dd class="field-even"><p>iterator state for paging</p>
 </dd>
-<dt class="field-odd">Return</dt>
+<dt class="field-odd">return</dt>
 <dd class="field-odd"><p>A request object containing the raw data</p>
 </dd>
 </dl>
